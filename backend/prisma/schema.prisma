@@ -1,0 +1,101 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  USER
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum IssueStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum IssuePriority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum SkillCategory {
+  HARDWARE
+  NETWORK
+  SOFTWARE
+  ACCOUNT
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  passwordHash  String
+  role          Role      @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  issues        Issue[]   @relation("CreatedIssues")
+  assignedIssues Issue[]  @relation("AssignedIssues")
+  comments      Comment[]
+  skills         AdminSkill[]
+}
+
+model AdminSkill {
+  id        String        @id @default(cuid())
+  userId    String
+  skill     SkillCategory
+
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, skill])
+}
+
+model Issue {
+  id            String        @id @default(cuid())
+  title         String
+  description   String
+  category      String
+  priority      IssuePriority @default(MEDIUM)
+  status        IssueStatus   @default(OPEN)
+
+  createdById   String
+  createdBy     User          @relation("CreatedIssues", fields: [createdById], references: [id])
+
+  assignedToId  String?
+  assignedTo    User?         @relation("AssignedIssues", fields: [assignedToId], references: [id])
+
+  comments      Comment[]
+
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model Comment {
+  id          String   @id @default(cuid())
+  body        String
+
+  issueId     String
+  issue       Issue    @relation(fields: [issueId], references: [id], onDelete: Cascade)
+
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id])
+
+  createdAt   DateTime @default(now())
+}
+
+model KnowledgeArticle {
+  id          String   @id @default(cuid())
+  title       String
+  content     String
+  category    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

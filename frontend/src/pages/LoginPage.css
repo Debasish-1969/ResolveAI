@@ -1,0 +1,171 @@
+.login-page {
+  text-align: left;
+}
+
+/* =========================
+   Login Header
+========================= */
+
+.login-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.login-logo {
+  width: 52px;
+  height: 52px;
+
+  margin: 0 auto 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background: var(--color-primary);
+  color: #ffffff;
+
+  font-size: 1.35rem;
+  font-weight: 750;
+
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.22);
+}
+
+.login-title {
+  margin: 0 0 8px;
+
+  font-size: 1.75rem;
+  line-height: 1.25;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+
+  color: var(--color-text);
+}
+
+.login-subtitle {
+  max-width: 320px;
+
+  margin: 0 auto;
+
+  color: var(--color-text-muted);
+
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* =========================
+   Login Form
+========================= */
+
+.login-form {
+  margin-top: 24px;
+}
+
+.login-form .ui-button {
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* =========================
+   Role Selection
+========================= */
+
+.login-role-selection {
+  margin: 22px 0;
+}
+
+.login-role-label {
+  margin: 0 0 8px;
+
+  color: var(--color-text-secondary);
+
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.login-role-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.login-role-button {
+  min-height: 42px;
+
+  padding: 8px 10px;
+
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+
+  font-size: 0.82rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+
+.login-role-button:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: var(--color-primary-soft);
+}
+
+.login-role-button:active {
+  transform: translateY(1px);
+}
+
+.login-role-button.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #ffffff;
+
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.18);
+}
+
+/* =========================
+   Footer
+========================= */
+
+.login-footer {
+  margin: 22px 0 0;
+
+  color: var(--color-text-muted);
+
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+.login-footer a {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-footer a:hover {
+  color: var(--color-primary-hover);
+  text-decoration: underline;
+}
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 480px) {
+  .login-role-options {
+    grid-template-columns: 1fr;
+  }
+
+  .login-role-button {
+    width: 100%;
+  }
+}
