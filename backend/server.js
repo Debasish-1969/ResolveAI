@@ -15,22 +15,35 @@ const app = express();
 
 app.use(express.json());
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:5173')
-    res.header(
+
+  const allowedOrigins = [
+      'http://localhost:5173',
+      'https://resolveai-frontend-eaa9.onrender.com',
+  ]
+
+  const origin = req.headers.origin
+
+  if (allowedOrigins.includes(origin)) {
+      res.header('Access-Control-Allow-Origin', origin)
+  }
+
+  res.header(
       'Access-Control-Allow-Methods',
       'GET,POST,PATCH,PUT,DELETE,OPTIONS',
-    )
-    res.header(
+  )
+
+  res.header(
       'Access-Control-Allow-Headers',
       'Content-Type, Authorization',
-    )
-  
-    if (req.method === 'OPTIONS') {
+  )
+
+  if (req.method === 'OPTIONS') {
       return res.sendStatus(204)
-    }
-  
-    next()
-  })
+  }
+
+  next()
+
+})
 app.use("/api/auth", authRoutes);
 app.use("/api/issues", issueRoutes);
 app.use("/api/issues", commentRoutes);
